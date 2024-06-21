@@ -4,11 +4,11 @@ Requires=gunicorn.socket
 After=network.target
 [Service]
 User=ubuntu
-Group=www-
-WorkingDirectory=/ubuntu/Django_Webapp
-ExecStart=/ubuntu/Django_Webapp/ram/bin/gunicorn
+Group=www-date
+WorkingDirectory=/home/ubuntu/Django_Webapp
+ExecStart=/home/ubuntu/ram/bin/Django_Webapp/ram/bin/gunicorn
          --access-logfile - \
          --workers 3 \
-         --bind unix:/run/gunicorn.sock \ django_web_app.wsgi.application
+         --bind unix:/home/ubuntu/run/gunicorn.sock \ django_web_app.wsgi.application
 [Install]
 WantedBy=multi-user.target
