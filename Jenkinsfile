@@ -1,30 +1,26 @@
-pipeline{
+pipeline {
     agent any
+
     stages {
-
-        stage('Setup Python Virtual ENV for dependencies'){
-
-      steps  {
-            sh '''
-            chmod +x envsetup.sh
-            ./envsetup.sh
-            '''}
-        }
-        stage('Setup Gunicorn Setup'){
+        stage('code cloning') {
             steps {
-                sh '''
-                chmod +x gunicorn.sh
-                ./gunicorn.sh
-                '''
+                git 'https://github.com/satyapujari06/Django-WebApp.git'
             }
         }
-        stage('setup Nginx'){
+        stage('code building') {
             steps {
-                sh '''
-                chmod +x nginx.sh
-                ./nginx.sh
-                '''
+                sh 'mvn clean package'
             }
-        }  
+        }
+        stage('convert artifacts to docker image') {
+            steps {
+                sh 'docker build -t sree .'
+            }
+        }
+        stage('upload docker image to hub') {
+            steps {
+                sh 'docker push satyapujari/django:latest '
+            }
+        }
     }
 }
