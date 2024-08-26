@@ -7,11 +7,6 @@ pipeline {
                 git 'https://github.com/satyapujari06/Django-WebApp.git'
             }
         }
-        stage('code building') {
-            steps {
-                sh 'mvn clean package'
-            }
-        }
         stage('convert artifacts to docker image') {
             steps {
                 sh 'docker build -t sree .'
